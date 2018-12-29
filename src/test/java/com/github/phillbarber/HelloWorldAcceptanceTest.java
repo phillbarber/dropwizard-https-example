@@ -20,7 +20,13 @@ public class HelloWorldAcceptanceTest {
     public final static DropwizardAppRule<AppConfig> appRule = new DropwizardAppRule<>(App.class);
 
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(options().port(8888));
+    public WireMockRule wireMockRule = new WireMockRule(
+            options()
+                    .port(8888)
+                    .httpsPort(8443)
+                    .keystorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/remote-server/5-keystore.pkcs12")
+                    .keystoreType("pkcs12")
+    .keystorePassword("abcdefg"));
 
 
     @Test
