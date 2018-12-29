@@ -25,8 +25,10 @@ public class HelloWorldAcceptanceTest {
                     .port(8888)
                     .httpsPort(8443)
                     .keystorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/remote-server/5-keystore.pkcs12")
-                    .keystoreType("pkcs12")
-    .keystorePassword("abcdefg"));
+                    .keystoreType("PKCS12")
+                    .keystorePassword("abcdefg")
+
+    );
 
 
     @Test

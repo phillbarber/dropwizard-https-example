@@ -2,3 +2,10 @@ logging:
   level: INFO
   loggers:
     com.github.phillbarber: DEBUG
+#server:
+#  applicationConnectors:
+#    - type: https
+#      port: 8443
+#      keyStorePath: /home/pergola/dev-workspace/dropwizard-https-example/target/keys/remote-server/5-keystore.pkcs12
+#      keyStorePassword: abcdefg
+#      keyStoreType: PKCS12
