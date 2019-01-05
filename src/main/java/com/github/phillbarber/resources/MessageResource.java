@@ -25,11 +25,7 @@ public class MessageResource {
 
         Response response = remoteServiceClient.target("http://localhost:8888/remote-service/message").request().get();
 
-        String s = response.readEntity(String.class);
-
-        return
-
-                s;
+        return response.readEntity(String.class);
     }
 
 }
