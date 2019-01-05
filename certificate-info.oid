@@ -14,7 +14,7 @@
  L                      = Test Locality
  O                      = Organization Name
  OU                     = Organizational Unit Name
- CN                     = Common Name
+ CN                     = localhost
  emailAddress           = phillbarber@github.com
 
  [ req_attributes ]
