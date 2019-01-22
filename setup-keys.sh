@@ -9,6 +9,7 @@ PRIVATE_KEY_AND_X509_CERT="$KEYS_DIR/4-private-key-and-x509-cert.pem"
 PKCS_KEY_STORE="$KEYS_DIR/5-keystore.pkcs12"
 JAVA_KEY_STORE="$KEYS_DIR/6-java-keystore.jks"
 PKCS_KEY_STORE_FROM_JAVA="$KEYS_DIR/7-keystore.pkcs12"
+ANOTHER_JAVA_KEY_STORE="$KEYS_DIR/8-java-keystore.jks"
 ALIAS="some-alias"
 PASSWORD="abcdefg"
 #PUBLIC_KEY="$KEYS_DIR/public-key.pem"
@@ -48,3 +49,6 @@ executeAndPrint keytool -importkeystore -srckeystore ${PKCS_KEY_STORE} -srcstore
 
 echo "7. Crazy but will try - create pkcs12 from keystore file"
 executeAndPrint keytool -importkeystore -srckeystore ${JAVA_KEY_STORE} -destkeystore ${PKCS_KEY_STORE_FROM_JAVA} -srcstoretype JKS -deststoretype PKCS12 -srcstorepass ${PASSWORD} -srcalias ${ALIAS} -deststorepass ${PASSWORD} -destalias ${ALIAS}
+
+echo "8. Create ANOTHER java key store file- shouldnt be necessary!!!! - for some reason this ALSO works but above does not"
+executeAndPrint keytool -importkeystore -srckeystore ${PKCS_KEY_STORE_FROM_JAVA} -srcstoretype pkcs12 -srcalias ${ALIAS} -destkeystore ${ANOTHER_JAVA_KEY_STORE} -deststoretype jks -srcstorepass ${PASSWORD} -deststorepass ${PASSWORD} -destalias ${ALIAS}
