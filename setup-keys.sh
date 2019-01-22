@@ -47,6 +47,10 @@ executeAndPrint openssl pkcs12 -name ${ALIAS} -password pass:${PASSWORD} -export
 echo "6. Create a java key store file- shouldnt be necessary!!!! - for some reason this works but above does not"
 executeAndPrint keytool -importkeystore -srckeystore ${PKCS_KEY_STORE} -srcstoretype pkcs12 -srcalias ${ALIAS} -destkeystore ${JAVA_KEY_STORE} -deststoretype jks -srcstorepass ${PASSWORD} -deststorepass ${PASSWORD} -destalias ${ALIAS}
 
+
+
+
+
 echo "7. Crazy but will try - create pkcs12 from keystore file"
 executeAndPrint keytool -importkeystore -srckeystore ${JAVA_KEY_STORE} -destkeystore ${PKCS_KEY_STORE_FROM_JAVA} -srcstoretype JKS -deststoretype PKCS12 -srcstorepass ${PASSWORD} -srcalias ${ALIAS} -deststorepass ${PASSWORD} -destalias ${ALIAS}
 
