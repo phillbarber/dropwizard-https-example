@@ -8,6 +8,7 @@ PUBLIC_X509_CERT="$KEYS_DIR/3-x509-cert.pem"
 PRIVATE_KEY_AND_X509_CERT="$KEYS_DIR/4-private-key-and-x509-cert.pem"
 PKCS_KEY_STORE="$KEYS_DIR/5-keystore.pkcs12"
 JAVA_KEY_STORE="$KEYS_DIR/6-java-keystore.jks"
+PKCS_KEY_STORE_FROM_JAVA="$KEYS_DIR/7-keystore.pkcs12"
 ALIAS="some-alias"
 PASSWORD="abcdefg"
 #PUBLIC_KEY="$KEYS_DIR/public-key.pem"
@@ -17,6 +18,7 @@ executeAndPrint() { echo "\$ $@" ; "$@" ; }
 
 echo "Initialise directory for keys (if required)"
 mkdir -p ${KEYS_DIR}
+rm ${KEYS_DIR}/*
 
 
 #Thanks to this page for commands: https://blog.knoldus.com/create-a-self-signed-ssl-certificate-using-openssl/
@@ -42,4 +44,7 @@ echo "5. Create pkc12 file"
 executeAndPrint openssl pkcs12 -name ${ALIAS} -password pass:${PASSWORD} -export -in ${PRIVATE_KEY_AND_X509_CERT} -out ${PKCS_KEY_STORE}
 
 echo "6. Create a java key store file- shouldnt be necessary!!!! - for some reason this works but above does not"
-executeAndPrint keytool -importkeystore -srckeystore ${PKCS_KEY_STORE} -srcstoretype pkcs12 -srcalias ${ALIAS} -destkeystore ${JAVA_KEY_STORE} -deststoretype jks -srcstorepass ${PASSWORD} -deststorepass ${PASSWORD} -destalias NEW_${ALIAS}
+executeAndPrint keytool -importkeystore -srckeystore ${PKCS_KEY_STORE} -srcstoretype pkcs12 -srcalias ${ALIAS} -destkeystore ${JAVA_KEY_STORE} -deststoretype jks -srcstorepass ${PASSWORD} -deststorepass ${PASSWORD} -destalias ${ALIAS}
+
+echo "7. Crazy but will try - create pkcs12 from keystore file"
+executeAndPrint keytool -importkeystore -srckeystore ${JAVA_KEY_STORE} -destkeystore ${PKCS_KEY_STORE_FROM_JAVA} -srcstoretype JKS -deststoretype PKCS12 -srcstorepass ${PASSWORD} -srcalias ${ALIAS} -deststorepass ${PASSWORD} -destalias ${ALIAS}

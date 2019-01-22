@@ -19,7 +19,7 @@ public class HelloWorldAcceptanceTest {
     public static final WireMockConfiguration OPTIONS = options()
             .httpsPort(8000)
             .keystorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/remote-server/6-java-keystore.jks")
-            .keystoreType("jks")
+            .keystoreType("JKS")
             .keystorePassword("abcdefg");
 
     @Rule
