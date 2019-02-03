@@ -23,9 +23,9 @@ public class MessageResource {
     @GET
     public String hello(){
 
-        Response response = remoteServiceClient.target("http://localhost:8888/remote-service/message").request().get();
+        //Response response = remoteServiceClient.target("http://localhost:8888/remote-service/message").request().get();
 
-        return response.readEntity(String.class);
+        return "TEST";
     }
 
 }

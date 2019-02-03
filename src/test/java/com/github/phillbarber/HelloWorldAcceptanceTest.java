@@ -22,17 +22,23 @@ import wiremock.org.eclipse.jetty.server.SslConnectionFactory;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
 public class HelloWorldAcceptanceTest {
 
     public static final WireMockConfiguration OPTIONS = options()
             .httpsPort(8000)
-            .keystorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/remote-server-alternative/3-keystore.pkcs12")
-            .httpServerFactory(new Pkcs12FriendlyHttpsServerFactory())
+
+            .keystorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/server/5-keystore.pkcs12")
             .keystoreType("PKCS12")
-            .keystorePassword("abcdefg");
+            .keystorePassword("abcdefg")
+
+            .trustStorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/client/5-keystore.pkcs12")
+            .trustStoreType("PKCS12")
+            .trustStorePassword("abcdefg")
+            .needClientAuth(true)
+
+            .httpServerFactory(new Pkcs12FriendlyHttpsServerFactory())
+            ;
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(OPTIONS);
