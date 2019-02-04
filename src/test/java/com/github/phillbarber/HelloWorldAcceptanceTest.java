@@ -11,6 +11,9 @@ import com.github.tomakehurst.wiremock.http.StubRequestHandler;
 import com.github.tomakehurst.wiremock.jetty9.JettyHttpServer;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
+import io.dropwizard.testing.ResourceHelpers;
+import io.dropwizard.testing.junit.DropwizardAppRule;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import wiremock.org.eclipse.jetty.io.NetworkTrafficListener;
@@ -28,24 +31,25 @@ public class HelloWorldAcceptanceTest {
     public static final WireMockConfiguration OPTIONS = options()
             .httpsPort(8000)
 
-            .keystorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/server/5-keystore.pkcs12")
+            .keystorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/server/5-keystore-privatekey-and-publiccert.pkcs12")
             .keystoreType("PKCS12")
             .keystorePassword("abcdefg")
 
-            .trustStorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/client/5-keystore.pkcs12")
+            .trustStorePath("/home/pergola/dev-workspace/dropwizard-https-example/target/keys/client/6-keystore-publiccert-only.pkcs12")
             .trustStoreType("PKCS12")
             .trustStorePassword("abcdefg")
             .needClientAuth(true)
 
-            .httpServerFactory(new Pkcs12FriendlyHttpsServerFactory())
-            ;
+            .httpServerFactory(new Pkcs12FriendlyHttpsServerFactory());
 
-    @Rule
+
+    @ClassRule
+    public static final DropwizardAppRule<AppConfig> RULE =
+            new DropwizardAppRule<AppConfig>(App.class, ResourceHelpers.resourceFilePath("config.yml"));
+
+    @ClassRule
     public WireMockRule wireMockRule = new WireMockRule(OPTIONS);
 
-    public static void main(String[] args) {
-        new WireMockServer(OPTIONS).start();
-    }
 
     @Test
     public void hello() {

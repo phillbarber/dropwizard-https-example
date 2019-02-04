@@ -6,10 +6,11 @@ server:
   applicationConnectors:
     - type: https
       port: 8443
-      keyStorePath: /home/pergola/dev-workspace/dropwizard-https-example/target/keys/server/5-keystore.pkcs12
+      keyStorePath: /home/pergola/dev-workspace/dropwizard-https-example/target/keys/server/5-keystore-privatekey-and-publiccert.p12
       keyStorePassword: abcdefg
       keyStoreType: PKCS12
-      trustStorePath: /home/pergola/dev-workspace/dropwizard-https-example/target/keys/client/5-keystore.pkcs12
+
+      trustStorePath: /home/pergola/dev-workspace/dropwizard-https-example/target/keys/client/6-keystore-publiccert-only.p12
       trustStorePassword: abcdefg
       trustStoreType: PKCS12
       needClientAuth: true
