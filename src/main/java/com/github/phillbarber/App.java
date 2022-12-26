@@ -34,7 +34,7 @@ public class App extends Application<AppConfig> {
 
 
 
-        environment.jersey().register(new MessageResource(ClientBuilder.newClient()));
+        environment.jersey().register(new MessageResource());
     }
 
 }

@@ -9,22 +9,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/message")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class MessageResource {
 
-    private final Client remoteServiceClient;
 
-    public MessageResource(Client remoteServiceClient) {
-        this.remoteServiceClient = remoteServiceClient;
+    public MessageResource() {
     }
 
 
     @GET
     public String hello(){
-
-        //Response response = remoteServiceClient.target("http://localhost:8888/remote-service/message").request().get();
-
         return "TEST";
     }
 

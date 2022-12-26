@@ -24,8 +24,7 @@ public class HelloWorldAcceptanceTest {
     void loginHandlerRedirectsAfterPost() {
         Client client = EXT.client();
 
-        Response response = client.target(
-                        String.format("https://localhost:%d/login", EXT.getLocalPort()))
+        Response response = client.target("https://localhost:8443/login")
                 .request()
                 .get();
 

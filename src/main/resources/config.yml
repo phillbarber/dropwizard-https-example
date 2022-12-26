@@ -9,8 +9,3 @@ server:
       keyStorePath: target/keys/server/5-keystore-with-privatekey-and-publiccert.p12
       keyStorePassword: abcdefg
       keyStoreType: PKCS12
-
-      trustStorePath: target/keys/server/6-keystore-with-publiccert-only.p12
-      trustStorePassword: abcdefg
-      trustStoreType: PKCS12
-      needClientAuth: true
