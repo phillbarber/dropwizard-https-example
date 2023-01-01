@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e;
 
-KEYS_DIR="target/keys/server"
+KEYS_DIR="target/classes/keys/server"
 PRIVATE_KEY="$KEYS_DIR/1-private-key.pem"
 CERTIFICATE_SIGNING_REQUEST="$KEYS_DIR/2-certificate-signing-request.csr"
 PUBLIC_X509_CERT="$KEYS_DIR/3-x509-cert.pem"

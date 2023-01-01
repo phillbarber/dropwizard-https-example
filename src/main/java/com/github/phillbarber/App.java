@@ -1,12 +1,11 @@
 package com.github.phillbarber;
 
-import com.github.phillbarber.resources.MessageResource;
+import com.github.phillbarber.resources.HelloWorldResource;
 import com.google.common.io.Resources;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
-import javax.ws.rs.client.ClientBuilder;
 import java.io.File;
 
 public class App extends Application<AppConfig> {
@@ -34,7 +33,7 @@ public class App extends Application<AppConfig> {
 
 
 
-        environment.jersey().register(new MessageResource());
+        environment.jersey().register(new HelloWorldResource());
     }
 
 }

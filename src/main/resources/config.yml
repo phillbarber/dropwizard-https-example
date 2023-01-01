@@ -6,6 +6,6 @@ server:
   applicationConnectors:
     - type: https
       port: 8443
-      keyStorePath: target/keys/server/5-keystore-with-privatekey-and-publiccert.p12
+      keyStorePath: target/classes/keys/server/5-keystore-with-privatekey-and-publiccert.p12
       keyStorePassword: abcdefg
       keyStoreType: PKCS12
