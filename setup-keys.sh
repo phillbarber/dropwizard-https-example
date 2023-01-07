@@ -34,7 +34,7 @@ executeAndPrint openssl req -config certificate-info.oid -new -key ${PRIVATE_KEY
 echo "3. Create the self-signed x509 public certificate suitable for use on the web server and (potentially) clients using the server"
 executeAndPrint openssl x509 -setalias ${ALIAS} -req -days 365 -in ${CERTIFICATE_SIGNING_REQUEST} -signkey ${PRIVATE_KEY} -out ${PUBLIC_X509_CERT}
 #pretty sure this file is fine as the following works ok:
-#openssl x509 -text -in target/keys/remote-server/3-x509-cert.pem
+openssl x509 -text -in ${PUBLIC_X509_CERT}
 
 echo "4. Create a new file with the private key and certificate"
 

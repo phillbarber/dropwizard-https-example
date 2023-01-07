@@ -6,7 +6,6 @@
  distinguished_name     = req_distinguished_name
  attributes             = req_attributes
  prompt                 = no
- output_password        = mypass
 
  [ req_distinguished_name ]
  CN                     = localhost
