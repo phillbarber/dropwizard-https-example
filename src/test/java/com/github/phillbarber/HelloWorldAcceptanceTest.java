@@ -10,6 +10,7 @@ import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder;
 import org.apache.hc.core5.ssl.SSLContextBuilder;
 import org.apache.hc.core5.ssl.SSLContexts;
+import org.apache.hc.core5.ssl.TrustStrategy;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
 import java.io.File;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 public class HelloWorldAcceptanceTest {
@@ -54,17 +57,17 @@ public class HelloWorldAcceptanceTest {
         String resourceFilePath = ResourceHelpers.resourceFilePath("keys/server/6-keystore-with-publiccert-only.p12");
 
         try {
-            SSLContextBuilder.create()
+            return SSLContextBuilder.create()
                     .loadTrustMaterial(
                             new File(resourceFilePath),
-                            "abcdefg".toCharArray())
+                            "abcdefg".toCharArray()
+                    )
                     .build();
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        return SSLContexts.createSystemDefault();
     }
 
 
