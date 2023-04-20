@@ -54,7 +54,7 @@ public class HelloWorldAcceptanceTest {
     }
 
     private static SSLContext getSSLContext() {
-        String resourceFilePath = ResourceHelpers.resourceFilePath("keys/server/6-keystore-with-publiccert-only.p12");
+        String resourceFilePath = ResourceHelpers.resourceFilePath("keys/server/6-keystore-with-publiccert-only.pfx");
 
         try {
             return SSLContextBuilder.create()

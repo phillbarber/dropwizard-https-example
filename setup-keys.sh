@@ -4,10 +4,11 @@ set -e;
 KEYS_DIR="target/classes/keys/server"
 PRIVATE_KEY="$KEYS_DIR/1-private-key.pem"
 CERTIFICATE_SIGNING_REQUEST="$KEYS_DIR/2-certificate-signing-request.csr"
-PUBLIC_X509_CERT="$KEYS_DIR/3-x509-cert.pem"
+PUBLIC_X509_CERT_PEM="$KEYS_DIR/3-x509-cert.pem"
 PRIVATE_KEY_AND_X509_CERT="$KEYS_DIR/4-private-key-and-x509-cert.pem"
 PKCS_KEY_STORE="$KEYS_DIR/5-keystore-with-privatekey-and-publiccert.p12"
 PKCS_KEY_STORE_CERT_ONLY="$KEYS_DIR/6-keystore-with-publiccert-only.p12"
+
 
 ALIAS="some-alias"
 PASSWORD="abcdefg"
@@ -32,17 +33,23 @@ echo "2. Generate a CSR(Certificate Signing Request).  The CA will use the .csr 
 executeAndPrint openssl req -config certificate-info.oid -new -key ${PRIVATE_KEY} -out ${CERTIFICATE_SIGNING_REQUEST}
 
 echo "3. Create the self-signed x509 public certificate suitable for use on the web server and (potentially) clients using the server"
-executeAndPrint openssl x509 -setalias ${ALIAS} -req -days 365 -in ${CERTIFICATE_SIGNING_REQUEST} -signkey ${PRIVATE_KEY} -out ${PUBLIC_X509_CERT}
+executeAndPrint openssl x509 -setalias ${ALIAS} -req -days 365 -in ${CERTIFICATE_SIGNING_REQUEST} -signkey ${PRIVATE_KEY} -out ${PUBLIC_X509_CERT_PEM}
+
 #pretty sure this file is fine as the following works ok:
-openssl x509 -text -in ${PUBLIC_X509_CERT}
+echo "Print the ${PUBLIC_X509_CERT_PEM}"
+executeAndPrint openssl x509 -text -in ${PUBLIC_X509_CERT_PEM}
 
 echo "4. Create a new file with the private key and certificate"
 
 cat ${PRIVATE_KEY} > ${PRIVATE_KEY_AND_X509_CERT}
-cat ${PUBLIC_X509_CERT} >> ${PRIVATE_KEY_AND_X509_CERT}
+cat ${PUBLIC_X509_CERT_PEM} >> ${PRIVATE_KEY_AND_X509_CERT}
 
 echo "5. Create pkc12 file with private key and cert"
 executeAndPrint openssl pkcs12 -name ${ALIAS} -password pass:${PASSWORD} -export -in ${PRIVATE_KEY_AND_X509_CERT} -out ${PKCS_KEY_STORE}
 
 echo "6. Create pkc12 file with cert only"
-executeAndPrint openssl pkcs12 -nokeys -name ${ALIAS} -password pass:${PASSWORD} -export -in ${PUBLIC_X509_CERT} -out ${PKCS_KEY_STORE_CERT_ONLY}
+executeAndPrint openssl pkcs12 -nokeys -name ${ALIAS} -password pass:${PASSWORD} -export -in ${PUBLIC_X509_CERT_PEM} -out ${PKCS_KEY_STORE_CERT_ONLY}
+
+
+echo "Lets look in cert file now"
+executeAndPrint openssl pkcs12 -password pass:${PASSWORD} -in ${PKCS_KEY_STORE_CERT_ONLY} -export
